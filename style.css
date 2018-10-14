@@ -3,8 +3,8 @@
 	Theme Name: Rams
     Text Domain: rams
 	Theme URI: http://www.andersnoren.se/teman/rams-wordpress-theme/
-	Version: 1.16
-	Description: A clean, minimalist and responsive theme for bloggers. Features responsive and retina-ready design, support for the gallery and quote post formats, custom accent color support, Jetpack infinite scroll integration, editor styles and translation ready code. Demo: http://www.andersnoren.se/themes/rams/
+	Version: 1.20
+	Description: A clean, minimalist and responsive theme for bloggers. Features responsive and retina-ready design, support for the gallery and quote post formats, Gutenberg support, custom accent color support, Jetpack infinite scroll integration, editor styles and translation ready code. Demo: http://www.andersnoren.se/themes/rams/
 	Tags: blog, two-columns, left-sidebar, custom-colors, custom-menu, editor-style, featured-images, post-formats, sticky-post, theme-options, threaded-comments, translation-ready
 	Author: Anders Norén
 	Author URI: http://www.andersnoren.se
@@ -114,6 +114,7 @@ body a:hover {
 }
 
 img {
+	display: block;
 	max-width: 100%;
 	height: auto;
 }
@@ -322,15 +323,14 @@ body a {
 .credits {
 	font-size: 13px;
 	color: #fff;
-	color: rgba( 255, 255, 255, 0.25 );
+	color: rgba( 255, 255, 255, 0.5 );
 	position: absolute;
-	bottom: 6%;
-	right: 40px;
+		bottom: 6%;
+		right: 40px;
 }
 
 .credits a { 
-	color: #fff;
-	color: rgba( 255, 255, 255, 0.3 ); 
+	color: inherit;
 }
 
 .credits a:hover { color: #fff; }
@@ -380,6 +380,7 @@ img#wpstats { display: none !important } /* silly wp stats */
 
 
 .post-header { margin-bottom: 40px; }
+.post-header:last-child { margin-bottom: 0; }
 
 .post-date {
 	font-size: 0.9em;
@@ -514,9 +515,10 @@ a.post-quote:hover {
 
 .page-links { 
 	background: #eee;
-	padding: 0 8%;
-	font-size: 0.9em;
+	display: flex;
 	color: #767676;
+	font-size: 0.9em;
+	padding: 0 8%;
 }
 
 .page-links > span,
@@ -752,19 +754,19 @@ a.post-quote:hover {
 }
 
 .post-content blockquote:before {
+	color: #AAA;
 	content: '”';
 	display: block;
-	width: 90px;
 	font-family: 'Georgia', 'Times New Roman', serif;
 	font-size: 72px;
-	line-height: 72px;
 	font-weight: 700;
-	color: #AAA;
-	text-align: center;
-	-webkit-font-smoothing: antialiased;
+	line-height: 72px;
 	position: absolute;
-	top: 32px;
-	left: 0px;
+		left: 0px;
+		top: 32px;
+	text-align: center;
+	width: 90px;
+	-webkit-font-smoothing: antialiased;
 }
 
 .post-content blockquote p { 
@@ -839,6 +841,11 @@ abbr, acronym { cursor: help; }
 	border: none;
 }
 
+.post-content hr.is-style-wide,
+.post-content hr.is-style-dots {
+	width: 100%;
+}
+
 .post-content ul,
 .post-content ol {
 	margin-left: 2em;
@@ -900,9 +907,17 @@ abbr, acronym { cursor: help; }
 	border-bottom: 1px dashed #ccc; 
 }
 
+.post-content p.has-drop-cap:first-letter {
+	font-size: 5.8em;
+}
+
 
 /* Post media --------------------------------------- */
 
+
+figure {
+	margin: 0;
+}
 
 .wp-caption,
 .post-content img {
@@ -913,7 +928,6 @@ abbr, acronym { cursor: help; }
 .alignleft,
 .alignright,
 .aligncenter { 
-	display: block; 
 	max-width: 100%;
 }
 
@@ -944,17 +958,18 @@ abbr, acronym { cursor: help; }
 
 .post-content .aligncenter,
 .post-content .aligncenter img {
-	display: block;
 	margin-left: auto;
 	margin-right: auto;
 }
 
 .post-content .wp-caption-text,
-.post-content .gallery-caption {
-	padding-top: 15px;
+.post-content .gallery-caption,
+.post-content figcaption {
+	color: #666;
 	font-size: 18px;
 	font-style: italic;
-	color: #666;
+	margin: 0;
+	padding-top: 15px;
 	text-align: center;
 }
 
@@ -963,15 +978,36 @@ abbr, acronym { cursor: help; }
 	line-height: 24px;
 }
 
-/* jetpack tiled gallery */
+/* Jetpack tiled gallery */
 
 .tiled-gallery .tiled-gallery-caption {
-	font-family: 'Montserrat', sans-serif;
-	text-align: center;
-	font-weight: 700;
-	text-transform: uppercase;
 	color: #666;
+	font-family: 'Montserrat', sans-serif;
+	font-weight: 700;
 	padding: 10px;
+	text-transform: uppercase;
+	text-align: center;
+}
+
+/* GUTENBERG CLASSES */
+
+.post-content .alignnone,
+.post-content .aligncenter,
+.post-content .alignfull,
+.post-content .alignwide {
+	margin-bottom: 2.5rem;
+	margin-top: 2.5rem;
+}
+
+.post-content .alignfull {
+	margin-left: calc( ( 800px ) * -0.08 );
+	max-width: 800px;
+	width: 800px;
+}
+
+.post-content .alignfull img {
+	border: none;
+	padding: 0;
 }
 
 
@@ -983,17 +1019,18 @@ abbr, acronym { cursor: help; }
     border-spacing: 0;
     empty-cells: show;
 	font-family: 'Montserrat', sans-serif;
-    font-size: 0.95rem;
+	font-size: 0.95rem;
+	margin: 2em 0;
     width: 100%;
 }
 
 .post-content th,
 .post-content td {
-	padding: 2%;
+	border-bottom: 1px solid #eee;
+	line-height: 120%;
 	margin: 0;
 	overflow: visible;
-	line-height: 120%;
-	border-bottom: 1px solid #eee;
+	padding: 2%;
 }
 
 .post-content tr:last-child td { border-bottom: none; }
@@ -1074,11 +1111,7 @@ abbr, acronym { cursor: help; }
 	color: #444;
 	border: 2px solid #eee;
 	background: #fdfdfd;
-	-webkit-transition: background 0.2s ease-in-out;
-	-moz-transition: background 0.2s ease-in-out;
-	-ms-transition: background 0.2s ease-in-out;
-	-o-transition: background 0.2s ease-in-out;
-	transition: background 0.2s ease-in-out;
+	transition: background-color 0.2s ease-in-out;
 	-webkit-appearance: none;
 	border-radius: 0;
 }
@@ -1134,6 +1167,193 @@ abbr, acronym { cursor: help; }
 .post-content input[type="submit"]:focus,
 .post-content input[type="submit"]:active {
 	outline: none;
+}
+
+
+/* Gutenberg Accent Colors --------------------------------------- */
+
+.post-content .has-background { background-color: #272F38; }
+
+.post-content .has-accent-color { color: #6AA897; }
+.post-content .has-accent-background-color { background-color: #6AA897; }
+
+.post-content .has-black-color { color: #272F38; }
+.post-content .has-black-background-color { background-color: #272F38; }
+
+.post-content .has-dark-gray-color { color: #444; }
+.post-content .has-dark-gray-background-color { background-color: #444; }
+
+.post-content .has-medium-gray-color { color: #666; }
+.post-content .has-medium-gray-background-color { background-color: #666; }
+
+.post-content .has-light-gray-color { color: #888; }
+.post-content .has-light-gray-background-color { background-color: #888; }
+
+.post-content .has-white-color { color: #fff; }
+.post-content .has-white-background-color { background-color: #fff; }
+
+
+/* Gutenberg Font Sizes --------------------------------------- */
+
+.post-content .has-small-font-size { font-size: .842em; }
+.post-content .has-regular-font-size { font-size: 1em; }
+
+.post-content .has-large-font-size,
+.post-content .has-larger-font-size {
+	line-height: 1.45;
+}
+
+.post-content .has-large-font-size { font-size: 1.2em; }
+.post-content .has-larger-font-size { font-size: 1.4em; }
+
+
+/* Block: Button --------------------------------------- */
+
+.post-content .wp-block-file__button,
+.post-content .wp-block-button__link {
+	border-radius: 4px;
+	font-family: 'Montserrat', sans-serif;
+	font-weight: 700;
+	padding: .8em 1.4em;
+}
+
+.post-content .wp-block-button__link {
+	font-size: 16px;
+}
+
+.post-content .wp-block-file a {
+	color: inherit;
+}
+
+.post-content a.wp-block-file__button {
+	color: #fff;
+}
+
+.post-content .wp-block-file__button:hover,
+.post-content .wp-block-button__link:hover {
+	opacity: .85;
+	text-decoration: none;
+}
+
+
+/* Block: Quote --------------------------------------- */
+
+.post-content blockquote,
+.post-content .wp-block-quote.is-large, 
+.post-content .wp-block-quote.is-style-large {
+	margin-bottom: 1.25em;
+	padding: 30px 30px 30px 90px;
+}
+
+.post-content blockquote p:last-child {
+	margin-bottom: 0;
+}
+
+.wp-block-quote.is-large p, 
+.wp-block-quote.is-style-large p {
+	font-size: 1.33em;
+	line-height: 1.5;
+}
+
+.wp-block-quote.is-large cite, 
+.wp-block-quote.is-style-large cite {
+	display: block;
+	font-size: 0.8em;
+	text-align: left;
+}
+
+
+/* Block: Pullquote --------------------------------------- */
+
+
+.wp-block-pullquote,
+.wp-block-pullquote blockquote {
+	background: none;
+	border: none;
+	padding: 0;
+}
+
+.wp-block-pullquote blockquote:before {
+	content: none;
+}
+
+.wp-block-pullquote cite {
+	color: #666;
+}
+
+
+/* Block: Gallery --------------------------------------- */
+
+.wp-block-gallery .blocks-gallery-image figcaption, 
+.wp-block-gallery .blocks-gallery-item figcaption {
+	margin: 0;
+	padding-bottom: 10px;
+}
+
+.post-content .wp-block-gallery.alignfull {
+	padding: 0 8px;
+}
+
+.post-content ul.wp-block-gallery:not(.alignfull) {
+	margin-left: 0;
+}
+
+
+/* Block: Image --------------------------------------- */
+
+.wp-block-image .aligncenter > figcaption, 
+.wp-block-image .alignleft > figcaption, 
+.wp-block-image .alignright > figcaption, 
+.wp-block-image.is-resized > figcaption {
+	display: block;
+}
+
+/* Block: Cover Image --------------------------------------- */
+
+.wp-block-cover-image.alignfull {
+	min-height: 75vh;
+}
+
+.wp-block-cover-image p {
+	font-weight: 400;
+}
+
+
+/* Block: Column --------------------------------------- */
+
+.wp-block-column {
+	padding: 0 5px;
+}
+
+
+/* Block: Audio --------------------------------------- */
+
+.wp-block-audio audio {
+	width: 100%;
+}
+
+
+/* Block: File --------------------------------------- */
+
+.post-content .wp-block-file {
+	align-items: center;
+	background: rgba( 0, 0, 0, 0.05 );
+	border-radius: 4px;
+	display: flex;
+	font-family: 'Montserrat', sans-serif;
+	justify-content: space-between;
+	margin: 30px 0;
+	padding: 20px;
+}
+
+.post-content .wp-block-file a:not(.wp-block-file__button) {
+	font-weight: 400;
+	text-decoration: none;
+}
+
+.post-content .wp-block-file__button {
+	font-weight: 700;
+	flex-shrink: 0;
 }
 
 
@@ -1335,8 +1555,18 @@ li.comment { position: relative; }
 /* Comment form --------------------------------------- */
 
 
-.comment-form p { margin-bottom: 30px; }
-.comment-form .form-submit { margin-bottom: 0; }
+.comment-form p { 
+	margin-bottom: 30px; 
+}
+
+.comment-form p:last-child { 
+	margin-bottom: 0; 
+}
+
+.comment-form p.comment-notes {
+	margin: -20px 0 50px;
+	line-height: 1.4;
+}
 
 .comment-form-author, 
 .comment-form-email {
@@ -1354,6 +1584,13 @@ li.comment { position: relative; }
 	font-weight: 700;
 	text-transform: uppercase;
 	color: #767676;
+}
+
+.comment-form input[type="checkbox"] + label {
+	display: inline;
+	font-weight: 400;
+	margin: 0 0 0 5px;
+	text-transform: none;
 }
 
 .comment-form label .required {
@@ -1424,7 +1661,10 @@ li.comment { position: relative; }
 
 .infinite-scroll .archive-nav { display: none; }
 
-.archive-nav a { color: #666; }
+.archive-nav a { 
+	color: #666; 
+	font-weight: 700;
+}
 
 .archive-nav a:hover { color: #6AA897; }
 
@@ -1472,6 +1712,21 @@ li.comment { position: relative; }
 /* -------------------------------------------------------------------------------- */
 
 
+@media ( max-width: 1254px ) {
+
+
+	/* Post Content --------------------------------------- */
+
+	.post-content .alignfull {
+		margin-left: calc( ( ( 100vw - 300px ) * .84 ) * -0.08 );
+		max-width: calc( ( 100vw - 300px ) * .84 );
+		width: calc( ( 100vw - 300px ) * .84 );
+	}
+
+
+}
+
+
 @media (max-width: 1100px) {
 
 	/* structure */
@@ -1482,6 +1737,15 @@ li.comment { position: relative; }
 	}
 	
 	.wrapper { margin-left: 250px; }
+
+
+	/* Post Content --------------------------------------- */
+	
+	.post-content .alignfull {
+		margin-left: calc( ( ( 100vw - 250px ) * .84 ) * -0.08 );
+		max-width: calc( ( 100vw - 250px ) * .84 );
+		width: calc( ( 100vw - 250px ) * .84 );
+	}
 
 }
 
@@ -1580,24 +1844,14 @@ li.comment { position: relative; }
 	.nav-toggle.active .bar:nth-child(3) { top: 4px; }
 	
 	.nav-toggle.active .bar:nth-child(2) { 
-		-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
-		filter: alpha(opacity=0);
 		opacity: 0; 
 	}
 	
 	.nav-toggle.active .bar:nth-child(1) {
-		-webkit-transform: rotate(45deg); 
-		-moz-transform: rotate(45deg);  
-		-ms-transform: rotate(45deg);  
-		-o-transform: rotate(45deg);  
 		transform: rotate(45deg); 
 	}
 	
 	.nav-toggle.active .bar:nth-child(3) { 
-		-webkit-transform: rotate(-45deg); 
-		-moz-transform: rotate(-45deg);  
-		-ms-transform: rotate(-45deg);  
-		-o-transform: rotate(-45deg);  
 		transform: rotate(-45deg); 
 	}
 	
@@ -1624,6 +1878,15 @@ li.comment { position: relative; }
 	}
 	
 	.mobile-menu a:hover { color: #fff; }
+
+
+	/* Post Content --------------------------------------- */
+	
+	.post-content .alignfull {
+		margin-left: calc( ( 100vw * .86 ) * -0.08 );
+		max-width: calc( 100vw * .86 );
+		width: calc( 100vw * .86 );
+	}
 	
 	
 }
@@ -1677,6 +1940,14 @@ li.comment { position: relative; }
 	/* single post */
 	
 	.post-meta-inner { padding: 40px 5%; }
+
+	/* Post Content --------------------------------------- */
+	
+	.post-content .alignfull {
+		margin-left: -5vw;
+		max-width: 100vw;
+		width: 100vw;
+	}
 	
 	/* comments */
 	
@@ -1776,6 +2047,10 @@ li.comment { position: relative; }
 	.comment-reply-title { margin-bottom: 30px; }
 	
 	.comment-form p { margin-bottom: 20px; }
+
+	.comment-form p.comment-notes {
+		margin-bottom: 25px;
+	}
 	
 	.comment-form-author,
 	.comment-form-email {
@@ -1824,22 +2099,28 @@ li.comment { position: relative; }
 
 	/* post content */
 	
-	.post-content blockquote { padding: 25px; }
+	.post-content blockquote,
+	.post-content .wp-block-quote.is-large, 
+	.post-content .wp-block-quote.is-style-large { 
+		padding: 25px; 
+	}
+
+	.post-content .wp-block-pullquote, 
+	.post-content .wp-block-pullquote blockquote {
+		padding: 0;
+	}
 	
 	.post-content blockquote:before { content: none; }
 	
 	.post-content .alignleft,
 	.post-content .alignright {
-		display: block;
-		max-width: 100%;
 		float: none;
-		margin-left: auto;
-		margin-right: auto;
+		margin: 2em auto;
+		max-width: 100%;
 	}
 	
 	.post-content .alignleft img,
 	.post-content .alignright img {
-		display: block;
 		margin: 0 auto;
 	}
 

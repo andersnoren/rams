@@ -1,6 +1,10 @@
-<?php if ( post_password_required() ) return; ?>
+<?php 
 
-<?php if ( have_comments() ) : ?>
+if ( post_password_required() ) {
+	return;
+}
+
+if ( have_comments() ) : ?>
 
 	<a name="comments"></a>
 	
@@ -74,50 +78,15 @@
 		
 	</div><!-- .comments -->
 	
-<?php endif; ?>
+	<?php 
+endif;
 
-<?php if ( ! comments_open() && ! is_page() ) : ?>
+if ( ! comments_open() && ! is_page() ) : ?>
 
 	<p class="no-comments"><?php _e( 'Comments are closed.', 'rams' ); ?></p>
 	
-<?php endif; ?>
+<?php endif;
 
-<?php $comments_args = array(
-
-	'comment_notes_before' => 
-		'',
-		
-	'comment_notes_after' =>
-		'',
-
-	'comment_field' => 
-		'<p class="comment-form-comment">
-			<label for="comment">' . __( 'Comment', 'rams' ) . '</label>
-			<textarea id="comment" name="comment" cols="45" rows="6" required></textarea>
-		</p>',
-	
-	'fields' => apply_filters( 'comment_form_default_fields', array(
-	
-		'author' =>
-			'<p class="comment-form-author">
-				<label for="author">' . __( 'Name', 'rams' ) . ( $req ? '<span class="required">*</span>' : '' ) . '</label> 
-				<input id="author" name="author" type="text" value="' . esc_attr( $commenter['comment_author'] ) . '" size="30" />
-			</p>',
-		
-		'email' =>
-			'<p class="comment-form-email">
-				<label for="email">' . __( 'Email', 'rams' ) . ( $req ? '<span class="required">*</span>' : '' ) . '</label> 
-				<input id="email" name="email" type="text" value="' . esc_attr(  $commenter['comment_author_email'] ) . '" size="30" />
-			</p>',
-		
-		'url' =>
-			'<p class="comment-form-url">
-				<label for="url">' . __( 'Website', 'rams' ) . '</label>
-				<input id="url" name="url" type="text" value="' . esc_attr( $commenter['comment_author_url'] ) . '" size="30" />
-			</p>')
-	),
-);
-
-comment_form($comments_args);
+comment_form();
 
 ?>

@@ -33,12 +33,16 @@
 		    <h2 class="post-title"><a href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>"><?php the_title(); ?></a></h2>
 		    	    
 		</div><!-- .post-header -->
+
+		<?php if ( get_the_content() ) : ?>
 		
-		<div class="post-content">
-		
-			<?php the_content(); ?>
-		
-		</div>
+			<div class="post-content">
+			
+				<?php the_content(); ?>
+			
+			</div><!-- .post-content -->
+			
+		<?php endif; ?>
 	
 	</div><!-- .post-inner -->
 

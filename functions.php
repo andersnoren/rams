@@ -19,7 +19,7 @@ if ( ! function_exists( 'rams_setup' ) ) {
 		// Post formats
 		add_theme_support( 'post-formats', array( 'gallery', 'quote' ) );
 		
-		add_theme_support('title-tag');
+		add_theme_support( 'title-tag' );
 			
 		// Jetpack infinite scroll
 		add_theme_support( 'infinite-scroll', array(
@@ -80,12 +80,28 @@ if ( ! function_exists( 'rams_load_javascript_files' ) ) {
 if ( ! function_exists( 'rams_load_style' ) ) {
 
 	function rams_load_style() {
+
 		if ( ! is_admin() ) {
-			wp_register_style( 'rams_googleFonts', '//fonts.googleapis.com/css?family=Montserrat:400,700|Crimson+Text:400,700,400italic,700italic' );
-			wp_register_style( 'rams_style', get_stylesheet_uri() );
+
+			$dependencies = array();
+
+			/**
+			 * Translators: If there are characters in your language that are not
+			 * supported by the theme fonts, translate this to 'off'. Do not translate
+			 * into your own language.
+			 */
+			$google_fonts = _x( 'on', 'Google Fonts: on or off', 'rams' );
+
+			if ( 'off' !== $google_fonts ) {
+
+				// Register Google Fonts
+				wp_register_style( 'rams_googleFonts', '//fonts.googleapis.com/css?family=Montserrat:400,700|Crimson+Text:400,700,400italic,700italic', false, 1.0, 'all' );
+				$dependencies[] = 'rams_googleFonts';
+
+			}
 			
-			wp_enqueue_style( 'rams_googleFonts' );
-			wp_enqueue_style( 'rams_style' );
+			wp_enqueue_style( 'rams_style', get_stylesheet_uri(), $dependencies );
+
 		}
 	}
 	add_action( 'wp_print_styles', 'rams_load_style' );
@@ -101,9 +117,23 @@ if ( ! function_exists( 'rams_load_style' ) ) {
 if ( ! function_exists( 'rams_add_editor_styles' ) ) {
 
 	function rams_add_editor_styles() {
+
 		add_editor_style( 'rams-editor-styles.css' );
-		$font_url = '//fonts.googleapis.com/css?family=Montserrat:400,700|Crimson+Text:400,700,400italic,700italic';
-		add_editor_style( str_replace( ',', '%2C', $font_url ) );
+
+		/**
+		 * Translators: If there are characters in your language that are not
+		 * supported by the theme fonts, translate this to 'off'. Do not translate
+		 * into your own language.
+		 */
+		$google_fonts = _x( 'on', 'Google Fonts: on or off', 'rams' );
+
+		if ( 'off' !== $google_fonts ) {
+
+			$font_url = '//fonts.googleapis.com/css?family=Montserrat:400,700|Crimson+Text:400,700,400italic,700italic';
+			add_editor_style( str_replace( ',', '%2C', $font_url ) );
+
+		}
+
 	}
 	add_action( 'init', 'rams_add_editor_styles' );
 
@@ -272,7 +302,6 @@ if ( ! function_exists( 'rams_flexslider' ) ) {
 if ( ! function_exists( 'rams_comment' ) ) {
 
 	function rams_comment( $comment, $args, $depth ) {
-		$GLOBALS['comment'] = $comment;
 		switch ( $comment->comment_type ) :
 			case 'pingback' :
 			case 'trackback' :
@@ -353,120 +382,220 @@ if ( ! function_exists( 'rams_comment' ) ) {
    --------------------------------------------------------------------------------------------- */
 
 
-class rams_Customize {
+class Rams_Customize {
 
-   public static function rams_register ( $wp_customize ) {
+	public static function rams_register ( $wp_customize ) {
+
+		$wp_customize->add_section( 'rams_options', array(
+			'title' 		=> __( 'Options for Rams', 'rams' ),
+			'priority' 		=> 35, 
+			'capability' 	=> 'edit_theme_options', 
+			'description' 	=> __('Allows you to customize theme settings for Rams.', 'rams'), 
+		) );
+		
+		$wp_customize->add_setting( 'accent_color', array(
+			'default' 			=> '#6AA897', 
+			'type' 				=> 'theme_mod', 
+			'transport' 		=> 'postMessage', 
+			'sanitize_callback' => 'sanitize_hex_color'
+		) );
+		
+		$wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'rams_accent_color', array(
+			'label' 		=> __( 'Accent Color', 'rams' ), 
+			'section' 		=> 'colors', 
+			'settings' 		=> 'accent_color', 
+			'priority' 		=> 10, 
+		) ) );
+
+		//4. We can also change built-in settings by modifying properties. For instance, let's make some stuff use live preview JS...
+		$wp_customize->get_setting( 'blogname' )->transport = 'postMessage';
+		$wp_customize->get_setting( 'blogdescription' )->transport = 'postMessage';
+	}
+
+	public static function rams_header_output() {
+      
+		echo '<!-- Customizer CSS -->';
+		echo '<style type="text/css">';
+
+			self::rams_generate_css( 'body a', 'color', 'accent_color' );
+			self::rams_generate_css( 'body a:hover', 'color', 'accent_color' );
+			self::rams_generate_css( '.sidebar', 'background', 'accent_color' );
+
+			self::rams_generate_css( '.flex-direction-nav a:hover', 'background-color', 'accent_color' );
+			self::rams_generate_css( 'a.post-quote:hover', 'background', 'accent_color' );
+			self::rams_generate_css( '.post-title a:hover', 'color', 'accent_color' );
+
+			self::rams_generate_css( '.post-content a', 'color', 'accent_color' );
+			self::rams_generate_css( '.post-content a:hover', 'color', 'accent_color' );
+			self::rams_generate_css( '.post-content a:hover', 'border-bottom-color', 'accent_color' );
+			self::rams_generate_css( '.post-content a.more-link:hover', 'background', 'accent_color' );
+			self::rams_generate_css( '.post-content input[type="submit"]:hover', 'background', 'accent_color' );
+			self::rams_generate_css( '.post-content input[type="button"]:hover', 'background', 'accent_color' );
+			self::rams_generate_css( '.post-content input[type="reset"]:hover', 'background', 'accent_color' );
+
+			self::rams_generate_css( '.post-content .has-accent-color', 'color', 'accent_color' );
+			self::rams_generate_css( '.post-content .has-accent-background-color', 'background-color', 'accent_color' );
+
+			self::rams_generate_css( '#infinite-handle span:hover', 'background', 'accent_color' );
+			self::rams_generate_css( '.page-links a:hover', 'background', 'accent_color' );
+			self::rams_generate_css( '.post-meta-inner a:hover', 'color', 'accent_color' );
+			self::rams_generate_css( '.add-comment-title a', 'color', 'accent_color' );
+			self::rams_generate_css( '.add-comment-title a:hover', 'color', 'accent_color' );
+			self::rams_generate_css( '.bypostauthor .avatar', 'border-color', 'accent_color' );
+			self::rams_generate_css( '.comment-actions a:hover', 'color', 'accent_color' );
+			self::rams_generate_css( '.comment-header h4 a:hover', 'color', 'accent_color' );
+			self::rams_generate_css( '#cancel-comment-reply-link', 'color', 'accent_color' );
+			self::rams_generate_css( '.comments-nav a:hover', 'color', 'accent_color' );
+			self::rams_generate_css( '.comment-form input[type="submit"]:hover', 'background-color', 'accent_color' );
+			self::rams_generate_css( '.logged-in-as a:hover', 'color', 'accent_color' );
+			self::rams_generate_css( '.archive-nav a:hover', 'color', 'accent_color' );
+
+		echo '</style>';
+		echo '<!--/Customizer CSS-->';
+	      
+	}
    
-      //1. Define a new section (if desired) to the Theme Customizer
-      $wp_customize->add_section( 'rams_options', 
-         array(
-            'title' => __( 'Options for Rams', 'rams' ), //Visible title of section
-            'priority' => 35, //Determines what order this appears in
-            'capability' => 'edit_theme_options', //Capability needed to tweak
-            'description' => __('Allows you to customize theme settings for Rams.', 'rams'), //Descriptive tooltip
-         ) 
-      );
-      
-      //2. Register new settings to the WP database...
-      $wp_customize->add_setting( 'accent_color', //No need to use a SERIALIZED name, as `theme_mod` settings already live under one db record
-         array(
-            'default' => '#6AA897', //Default setting/value to save
-            'type' => 'theme_mod', //Is this an 'option' or a 'theme_mod'?
-            'transport' => 'postMessage', //What triggers a refresh of the setting? 'refresh' or 'postMessage' (instant)?
-      		'sanitize_callback' => 'sanitize_hex_color'
-         ) 
-      );
-      
-      //3. Finally, we define the control itself (which links a setting to a section and renders the HTML controls)...
-      $wp_customize->add_control( new WP_Customize_Color_Control( //Instantiate the color control class
-         $wp_customize, //Pass the $wp_customize object (required)
-         'rams_accent_color', //Set a unique ID for the control
-         array(
-            'label' => __( 'Accent Color', 'rams' ), //Admin-visible name of the control
-            'section' => 'colors', //ID of the section this control should render in (can be one of yours, or a WordPress default section)
-            'settings' => 'accent_color', //Which setting to load and manipulate (serialized is okay)
-            'priority' => 10, //Determines the order this control appears in for the specified section
-         ) 
-      ) );
-      
-      //4. We can also change built-in settings by modifying properties. For instance, let's make some stuff use live preview JS...
-      $wp_customize->get_setting( 'blogname' )->transport = 'postMessage';
-      $wp_customize->get_setting( 'blogdescription' )->transport = 'postMessage';
-   }
+	public static function rams_live_preview() {
+		wp_enqueue_script( 'rams-themecustomizer', get_template_directory_uri() . '/js/theme-customizer.js', array(  'jquery', 'customize-preview' ), '', true );
+	}
 
-   public static function rams_header_output() {
-      ?>
-      
-	      <!-- Customizer CSS --> 
-	      
-	      <style type="text/css">
-	           <?php self::rams_generate_css('body a', 'color', 'accent_color'); ?>
-	           <?php self::rams_generate_css('body a:hover', 'color', 'accent_color'); ?>
-	           <?php self::rams_generate_css('.sidebar', 'background', 'accent_color'); ?>
-	           <?php self::rams_generate_css('.flex-direction-nav a:hover', 'background-color', 'accent_color'); ?>
-	           <?php self::rams_generate_css('a.post-quote:hover', 'background', 'accent_color'); ?>
-	           <?php self::rams_generate_css('.post-title a:hover', 'color', 'accent_color'); ?>
-	           <?php self::rams_generate_css('.post-content a', 'color', 'accent_color'); ?>
-	           <?php self::rams_generate_css('.post-content a:hover', 'color', 'accent_color'); ?>
-	           <?php self::rams_generate_css('.post-content a:hover', 'border-bottom-color', 'accent_color'); ?>
-	           <?php self::rams_generate_css('.post-content a.more-link:hover', 'background', 'accent_color'); ?>
-	           <?php self::rams_generate_css('.post-content input[type="submit"]:hover', 'background', 'accent_color'); ?>
-	           <?php self::rams_generate_css('.post-content input[type="button"]:hover', 'background', 'accent_color'); ?>
-	           <?php self::rams_generate_css('.post-content input[type="reset"]:hover', 'background', 'accent_color'); ?>
-	           <?php self::rams_generate_css('#infinite-handle span:hover', 'background', 'accent_color'); ?>
-	           <?php self::rams_generate_css('.page-links a:hover', 'background', 'accent_color'); ?>
-	           <?php self::rams_generate_css('.post-meta-inner a:hover', 'color', 'accent_color'); ?>
-	           <?php self::rams_generate_css('.add-comment-title a', 'color', 'accent_color'); ?>
-	           <?php self::rams_generate_css('.add-comment-title a:hover', 'color', 'accent_color'); ?>
-	           <?php self::rams_generate_css('.bypostauthor .avatar', 'border-color', 'accent_color'); ?>
-	           <?php self::rams_generate_css('.comment-actions a:hover', 'color', 'accent_color'); ?>
-	           <?php self::rams_generate_css('.comment-header h4 a:hover', 'color', 'accent_color'); ?>
-	           <?php self::rams_generate_css('#cancel-comment-reply-link', 'color', 'accent_color'); ?>
-	           <?php self::rams_generate_css('.comments-nav a:hover', 'color', 'accent_color'); ?>
-	           <?php self::rams_generate_css('.comment-form input[type="submit"]:hover', 'background-color', 'accent_color'); ?>
-	           <?php self::rams_generate_css('.logged-in-as a:hover', 'color', 'accent_color'); ?>
-	           <?php self::rams_generate_css('.archive-nav a:hover', 'color', 'accent_color'); ?>
-	      </style> 
-	      
-	      <!--/Customizer CSS-->
-	      
-      <?php
-   }
-   
-   public static function rams_live_preview() {
-      wp_enqueue_script( 
-           'rams-themecustomizer', // Give the script a unique ID
-           get_template_directory_uri() . '/js/theme-customizer.js', // Define the path to the JS file
-           array(  'jquery', 'customize-preview' ), // Define dependencies
-           '', // Define a version (optional) 
-           true // Specify whether to put in footer (leave this true)
-      );
-   }
-
-   public static function rams_generate_css( $selector, $style, $mod_name, $prefix='', $postfix='', $echo=true ) {
-      $return = '';
-      $mod = get_theme_mod($mod_name);
-      if ( ! empty( $mod ) ) {
-         $return = sprintf('%s { %s:%s; }',
-            $selector,
-            $style,
-            $prefix.$mod.$postfix
-         );
-         if ( $echo ) {
-            echo $return;
-         }
-      }
-      return $return;
-    }
+	public static function rams_generate_css( $selector, $style, $mod_name, $prefix='', $postfix='', $echo=true ) {
+		$return = '';
+		$mod = get_theme_mod( $mod_name );
+		if ( ! empty( $mod ) ) {
+			$return = sprintf( '%s { %s: %s; }', $selector, $style, $prefix.$mod.$postfix );
+			if ( $echo ) {
+				echo $return;
+			}
+		}
+		return $return;
+	}
 }
 
 // Setup the Theme Customizer settings and controls...
-add_action( 'customize_register' , array( 'rams_Customize' , 'rams_register' ) );
+add_action( 'customize_register' , array( 'Rams_Customize', 'rams_register' ) );
 
 // Output custom CSS to live site
-add_action( 'wp_head' , array( 'rams_Customize' , 'rams_header_output' ) );
+add_action( 'wp_head' , array( 'Rams_Customize', 'rams_header_output' ) );
 
 // Enqueue live preview javascript in Theme Customizer admin screen
-add_action( 'customize_preview_init' , array( 'rams_Customize' , 'rams_live_preview' ) );
+add_action( 'customize_preview_init' , array( 'Rams_Customize', 'rams_live_preview' ) );
+
+
+/* ---------------------------------------------------------------------------------------------
+   SPECIFY GUTENBERG SUPPORT
+------------------------------------------------------------------------------------------------ */
+
+
+if ( ! function_exists( 'rams_add_gutenberg_features' ) ) :
+
+	function rams_add_gutenberg_features() {
+
+		/* Gutenberg Palette --------------------------------------- */
+
+		$accent_color = get_theme_mod( 'accent_color' ) ? get_theme_mod( 'accent_color' ) : '#6AA897';
+
+		add_theme_support( 'editor-color-palette', array(
+			array(
+				'name' 	=> _x( 'Accent', 'Name of the accent color in the Gutenberg palette', 'rams' ),
+				'slug' 	=> 'accent',
+				'color' => $accent_color,
+			),
+			array(
+				'name' 	=> _x( 'Black', 'Name of the black color in the Gutenberg palette', 'rams' ),
+				'slug' 	=> 'black',
+				'color' => '#222',
+			),
+			array(
+				'name' 	=> _x( 'Dark Gray', 'Name of the dark gray color in the Gutenberg palette', 'rams' ),
+				'slug' 	=> 'dark-gray',
+				'color' => '#444',
+			),
+			array(
+				'name' 	=> _x( 'Medium Gray', 'Name of the medium gray color in the Gutenberg palette', 'rams' ),
+				'slug' 	=> 'medium-gray',
+				'color' => '#666',
+			),
+			array(
+				'name' 	=> _x( 'Light Gray', 'Name of the light gray color in the Gutenberg palette', 'rams' ),
+				'slug' 	=> 'light-gray',
+				'color' => '#888',
+			),
+			array(
+				'name' 	=> _x( 'White', 'Name of the white color in the Gutenberg palette', 'rams' ),
+				'slug' 	=> 'white',
+				'color' => '#fff',
+			),
+		) );
+
+		/* Gutenberg Font Sizes --------------------------------------- */
+
+		add_theme_support( 'editor-font-sizes', array(
+			array(
+				'name' 		=> _x( 'Small', 'Name of the small font size in Gutenberg', 'rams' ),
+				'shortName' => _x( 'S', 'Short name of the small font size in the Gutenberg editor.', 'rams' ),
+				'size' 		=> 18,
+				'slug' 		=> 'small',
+			),
+			array(
+				'name' 		=> _x( 'Regular', 'Name of the regular font size in Gutenberg', 'rams' ),
+				'shortName' => _x( 'M', 'Short name of the regular font size in the Gutenberg editor.', 'rams' ),
+				'size' 		=> 22,
+				'slug' 		=> 'regular',
+			),
+			array(
+				'name' 		=> _x( 'Large', 'Name of the large font size in Gutenberg', 'rams' ),
+				'shortName' => _x( 'L', 'Short name of the large font size in the Gutenberg editor.', 'rams' ),
+				'size' 		=> 27,
+				'slug' 		=> 'large',
+			),
+			array(
+				'name' 		=> _x( 'Larger', 'Name of the larger font size in Gutenberg', 'rams' ),
+				'shortName' => _x( 'XL', 'Short name of the larger font size in the Gutenberg editor.', 'rams' ),
+				'size' 		=> 35,
+				'slug' 		=> 'larger',
+			),
+		) );
+
+	}
+	add_action( 'after_setup_theme', 'rams_add_gutenberg_features' );
+
+endif;
+
+
+/* ---------------------------------------------------------------------------------------------
+   GUTENBERG EDITOR STYLES
+   --------------------------------------------------------------------------------------------- */
+
+
+if ( ! function_exists( 'rams_block_editor_styles' ) ) :
+
+	function rams_block_editor_styles() {
+
+		$dependencies = array();
+
+		/**
+		 * Translators: If there are characters in your language that are not
+		 * supported by the theme fonts, translate this to 'off'. Do not translate
+		 * into your own language.
+		 */
+		$google_fonts = _x( 'on', 'Google Fonts: on or off', 'rams' );
+
+		if ( 'off' !== $google_fonts ) {
+
+			// Register Google Fonts
+			wp_register_style( 'rams-block-editor-styles-font', '//fonts.googleapis.com/css?family=Montserrat:400,700|Crimson+Text:400,700,400italic,700italic', false, 1.0, 'all' );
+			$dependencies[] = 'rams-block-editor-styles-font';
+
+		}
+
+		// Enqueue the editor styles
+		wp_enqueue_style( 'rams-block-editor-styles', get_theme_file_uri( '/rams-gutenberg-editor-style.css' ), $dependencies, '1.0', 'all' );
+
+	}
+	add_action( 'enqueue_block_editor_assets', 'rams_block_editor_styles', 1 );
+
+endif;
+
 
 ?>

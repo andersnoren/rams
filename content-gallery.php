@@ -26,11 +26,15 @@
 		    	    
 		</div><!-- .post-header -->
 		
-		<div class="post-content">
+		<?php if ( get_the_content() ) : ?>
 		
-			<?php the_content(); ?>
-		
-		</div>
+			<div class="post-content">
+			
+				<?php the_content(); ?>
+			
+			</div><!-- .post-content -->
+			
+		<?php endif; ?>
 	
 	</div><!-- .post-inner -->
 
