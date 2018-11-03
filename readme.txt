@@ -63,6 +63,10 @@ Source: http://www.unsplash.com
 
 == Changelog ==
 
+Version 1.21 (2018-10-14)
+-------------------------
+- Added the .has-accent-color/-background-color Gutenberg elements to the custom accent color function
+
 Version 1.20 (2018-10-14)
 -------------------------
 - Accent color fix in the Gutenberg editor styles
