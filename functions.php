@@ -95,7 +95,7 @@ if ( ! function_exists( 'rams_load_style' ) ) {
 			if ( 'off' !== $google_fonts ) {
 
 				// Register Google Fonts
-				wp_register_style( 'rams_googleFonts', '//fonts.googleapis.com/css?family=Montserrat:400,700|Crimson+Text:400,700,400italic,700italic', false, 1.0, 'all' );
+				wp_register_style( 'rams_googleFonts', '//fonts.googleapis.com/css?family=Montserrat:400,500,600,700|Crimson+Text:400,700,400italic,700italic', false, 1.0, 'all' );
 				$dependencies[] = 'rams_googleFonts';
 
 			}
@@ -129,7 +129,7 @@ if ( ! function_exists( 'rams_add_editor_styles' ) ) {
 
 		if ( 'off' !== $google_fonts ) {
 
-			$font_url = '//fonts.googleapis.com/css?family=Montserrat:400,700|Crimson+Text:400,700,400italic,700italic';
+			$font_url = '//fonts.googleapis.com/css?family=Montserrat:400,500,600,700|Crimson+Text:400,700,400italic,700italic';
 			add_editor_style( str_replace( ',', '%2C', $font_url ) );
 
 		}
@@ -584,7 +584,7 @@ if ( ! function_exists( 'rams_block_editor_styles' ) ) :
 		if ( 'off' !== $google_fonts ) {
 
 			// Register Google Fonts
-			wp_register_style( 'rams-block-editor-styles-font', '//fonts.googleapis.com/css?family=Montserrat:400,700|Crimson+Text:400,700,400italic,700italic', false, 1.0, 'all' );
+			wp_register_style( 'rams-block-editor-styles-font', '//fonts.googleapis.com/css?family=Montserrat:400,500,600,700|Crimson+Text:400,700,400italic,700italic', false, 1.0, 'all' );
 			$dependencies[] = 'rams-block-editor-styles-font';
 
 		}

@@ -9,20 +9,24 @@
 	<div class="post-inner">
 		
 		<div class="post-header">
+
+			<?php if ( get_post_type() == 'post' ) : ?>
 			
-			<p class="post-date">
+				<p class="post-date">
+				
+					<a href="<?php the_permalink(); ?>"><?php the_time( get_option( 'date_format' ) ); ?></a>
+					
+					<?php if ( is_sticky() ) : ?>
+					
+						<span class="sep">/</span> <?php _e( 'Sticky', 'rams' ); ?>
+					
+					<?php endif; ?>
+					
+				</p>
+
+			<?php endif; ?>
 			
-				<a href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>"><?php the_time( get_option( 'date_format' ) ); ?></a>
-				
-				<?php if ( is_sticky() ) : ?>
-				
-					<span class="sep">/</span> <?php _e( 'Sticky', 'rams' ); ?>
-				
-				<?php endif; ?>
-				
-			</p>
-			
-		    <h2 class="post-title"><a href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>"><?php the_title(); ?></a></h2>
+		    <h2 class="post-title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
 		    	    
 		</div><!-- .post-header -->
 		

@@ -1,6 +1,6 @@
 <div id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 	
-	<a class="post-quote" href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>">
+	<a class="post-quote" href="<?php the_permalink(); ?>">
 		
 		<div class="post-inner">
 		

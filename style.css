@@ -2,12 +2,12 @@
 
 	Theme Name: Rams
     Text Domain: rams
-	Theme URI: http://www.andersnoren.se/teman/rams-wordpress-theme/
-	Version: 1.21
-	Description: A clean, minimalist and responsive theme for bloggers. Features responsive and retina-ready design, support for the gallery and quote post formats, Gutenberg support, custom accent color support, Jetpack infinite scroll integration, editor styles and translation ready code. Demo: http://www.andersnoren.se/themes/rams/
+	Theme URI: https://www.andersnoren.se/teman/rams-wordpress-theme/
+	Version: 1.25
+	Description: A clean, minimalist and responsive theme for bloggers. Features responsive and retina-ready design, support for the gallery and quote post formats, Block Editor/Gutenberg support, custom accent color support, Jetpack infinite scroll integration, and editor styles. Demo: https://www.andersnoren.se/themes/rams/
 	Tags: blog, two-columns, left-sidebar, custom-colors, custom-menu, editor-style, featured-images, post-formats, sticky-post, theme-options, threaded-comments, translation-ready
 	Author: Anders Norén
-	Author URI: http://www.andersnoren.se
+	Author URI: https://www.andersnoren.se
 	License: GNU General Public License version 2.0
 	License URI: http://www.gnu.org/licenses/gpl-2.0.html
 	
@@ -1700,11 +1700,23 @@ li.comment { position: relative; }
 .page-title { margin-bottom: 40px; }
 
 .page-title h4 {
-	text-align: center;
 	color: #666;
+	font-weight: 600;
+	text-align: center;
 }
 
 .page-title span { color: #999; }
+
+.page-title .tag-meta {
+	line-height: 1.3;
+	margin-top: 20px;
+	text-align: center;
+}
+
+.page-title .tag-meta p {
+	line-height: inherit;
+	text-align: inherit;
+}
 
 
 /* -------------------------------------------------------------------------------- */

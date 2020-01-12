@@ -2,7 +2,7 @@
 Contributors: Anlino
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=anders%40andersnoren%2ese&lc=US&item_name=Free%20WordPress%20Themes%20from%20Anders%20Noren&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted
 Requires at least: 4.4
-Tested up to: 4.8
+Tested up to: 5.0
 Stable tag: trunk
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -62,6 +62,24 @@ Source: http://www.unsplash.com
 
 
 == Changelog ==
+
+Version 1.25 (2019-04-07)
+-------------------------
+- Added the new wp_body_open() function, along with a function_exists check
+
+Version 1.24 (2018-12-28)
+-------------------------
+- Merged archive.php and search.php into index.php
+- Merged single.php and page.php into singular.php
+
+Version 1.23 (2018-12-07)
+-------------------------
+- Fixed Gutenberg style changes required due to changes in the block editor CSS and classes
+- Fixed the Classic Block TinyMCE buttons being set to the wrong font
+
+Version 1.22 (2018-11-30)
+-------------------------
+- Fixed Gutenberg editor styles font being overwritten
 
 Version 1.21 (2018-10-14)
 -------------------------
