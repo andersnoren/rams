@@ -1,24 +1,34 @@
 /*---------------------------------------------------------------------------------
-	Gutenberg editor styles for Rams
+	Block Editor styles for Rams
 ---------------------------------------------------------------------------------*/
 
+/* Colors ------------------------------------ */
 
-/* Structure ---------------------------------------------- */
+:root .has-accent-color { color: #6AA897; }
+:root .has-black-color { color: #272F38; }
+:root .has-dark-gray-color { color: #444; }
+:root .has-medium-gray-color { color: #666; }
+:root .has-light-gray-color { color: #888; }
+:root .has-accent-background-color { background-color: #6AA897; }
+:root .has-white-color { color: #fff; }
 
-.block-editor__container .editor-styles-wrapper {
-	font-size: 22px;
-}
+:root .has-black-background-color { background-color: #272F38; }
+:root .has-dark-gray-background-color { background-color: #444; }
+:root .has-medium-gray-background-color { background-color: #666; }
+:root .has-light-gray-background-color { background-color: #888; }
+:root .has-white-background-color { background-color: #fff; }
 
-.editor-rich-text__tinymce {
+/* Structure --------------------------------- */
+
+.editor-styles-wrapper > * {
 	color: #444;
+	font-size: 22px;
 	font-family: 'Crimson Text', 'Times New Roman', 'Times', serif;
+	-moz-osx-font-smoothing: grayscale;
 	-webkit-font-smoothing: antialiased;
 }
 
-.editor-rich-text__tinymce * {
-	font-family: inherit !important;
-}
-
+:root .wp-block,
 .editor-styles-wrapper .editor-default-block-appender, 
 .editor-styles-wrapper .editor-block-list__block,
 .editor-styles-wrapper .editor-post-title__block {
@@ -39,12 +49,11 @@
 	line-height: 1.5;
 }
 
-
-/* Typography --------------------------------------------- */
+/* Typography -------------------------------- */
 
 .editor-post-title__block .editor-post-title__input {
 	color: #272F38;
-	font-family: 'Montserrat', sans-serif !important;
+	font-family: Montserrat, sans-serif !important;
 	font-size: 36px;
 	font-weight: 700;
 	line-height: 1.2;
@@ -60,52 +69,49 @@
 	text-decoration: underline;
 }
 
-.editor-styles-wrapper p {
-	font-size: inherit;
-}
-
 .editor-styles-wrapper .editor-block-list__block, 
 .editor-styles-wrapper .editor-block-list__block p {
 	font-size: inherit;
 }
 
-.editor-styles-wrapper .wp-block-heading h1,
-.editor-styles-wrapper .wp-block-heading h2,
-.editor-styles-wrapper .wp-block-heading h3,
-.editor-styles-wrapper .wp-block-heading h4,
-.editor-styles-wrapper .wp-block-heading h5,
-.editor-styles-wrapper .wp-block-heading h6 {
-	color: #333;
-	font-family: 'Montserrat', sans-serif !important;
+.editor-post-title__block .editor-post-title__input,
+:root .editor-styles-wrapper h1, 
+:root .editor-styles-wrapper h2, 
+:root .editor-styles-wrapper h3, 
+:root .editor-styles-wrapper h4, 
+:root .editor-styles-wrapper h5, 
+:root .editor-styles-wrapper h6  {
+	color: #222;
+	font-family: Montserrat, sans-serif !important;
 	font-weight: 700;
-	line-height: 1.2 !important;
-	margin: 50px 0 20px;
+	line-height: 1.2;
+	margin: 50px auto 20px;
 }
 
-.editor-styles-wrapper .wp-block-heading h1 { font-size: 1.75em; }
-.editor-styles-wrapper .wp-block-heading h2 { font-size: 1.5em; }
-.editor-styles-wrapper .wp-block-heading h3 { font-size: 1.25em; }
+:root .editor-styles-wrapper h1 { font-size: 1.6em; }
+:root .editor-styles-wrapper h2 { font-size: 1.45em; }
+:root .editor-styles-wrapper h3 { font-size: 1.3em; }
 
-.editor-styles-wrapper .wp-block-heading h4 { 
-	font-size: 1.1em; 
+:root .editor-styles-wrapper h4 { 
+	font-size: 1.15em; 
 	font-weight: 400;
 }
 
-.editor-styles-wrapper .wp-block-heading h5 { 
+:root .editor-styles-wrapper h5 { 
 	font-size: 1em; 
 	font-weight: 400;
 }
 
-.editor-styles-wrapper .wp-block-heading h6 {
+:root .editor-styles-wrapper h6 {
 	color: #666;
-	font-size: 0.8em;
+	font-size: 16px;
 	font-weight: 700;
 	margin-bottom: 10px;
 	text-transform: uppercase;
 }
 
-.editor-styles-wrapper .wp-block-heading h4,
-.editor-styles-wrapper .wp-block-heading h5 {
+.editor-styles-wrapper h4,
+.editor-styles-wrapper h5 {
 	font-weight: 400;
 }
 
@@ -114,15 +120,7 @@ p.has-drop-cap:not(:focus):first-letter {
     font-weight: 400;
 }
 
-
-/* Monospace -------------------------------------- */
-
-.editor-styles-wrapper code, 
-.editor-styles-wrapper kbd, 
-.editor-styles-wrapper pre, 
-.editor-styles-wrapper samp {
-	font-family: Menlo, Monaco, monospace !important;
-}
+/* Monospace --------------------------------- */
 
 kbd,
 pre,
@@ -139,9 +137,7 @@ pre {
 	padding: 1em;
 }
 
-
-/* Custom Text Sizes -------------------------------------- */
-
+/* Custom Text Sizes ------------------------- */
 
 .editor-styles-wrapper p.has-large-font-size,
 .editor-styles-wrapper p.has-large-font-size.mce-content-body,
@@ -150,8 +146,7 @@ pre {
 	line-height: 1.5;
 }
 
-
-/* Post Media --------------------------------------------- */
+/* Post Media -------------------------------- */
 
 figure {
 	margin: 0;
@@ -182,19 +177,16 @@ figure {
 	color: #666;
 	font-size: 0.85em;
 	font-style: italic;
-	font-weight: 500;
 }
 
-
-/* Block: Table ---------------------------------------- */
-
+/* Block: Table ------------------------------ */
 
 table.wp-block-table {
 	border: none;
 	border-collapse: collapse;
     border-spacing: 0;
 	empty-cells: show;
-	font-family: 'Montserrat', sans-serif !important;
+	font-family: Montserrat, sans-serif !important;
     font-size: 16px;
     margin-bottom: 1.1em;
     width: 100%;
@@ -240,9 +232,7 @@ table.wp-block-table thead + tbody {
 
 .wp-block-table tbody > tr:nth-child(odd) > td { background: #f9f9f9; }
 
-
-/* Block: Separator ---------------------------------------- */
-
+/* Block: Separator -------------------------- */
 
 hr.wp-block-separator {
 	border: none !important;
@@ -267,14 +257,12 @@ hr.wp-block-separator {
 	color: inherit;
 }
 
-
-/* Block: File --------------------------------------------- */
-
+/* Block: File ------------------------------- */
 
 .wp-block-file {
 	background: rgba( 0, 0, 0, 0.05 );
 	border-radius: 4px;
-	font-family: 'Montserrat', sans-serif !important;
+	font-family: Montserrat, sans-serif !important;
 	font-size: 20px;
 	padding: 15px 20px;
 }
@@ -291,7 +279,7 @@ hr.wp-block-separator {
 
 .wp-block-file .wp-block-file__textlink {
 	color: inherit;
-	font-weight: 400;
+	font-weight: 700;
 	text-decoration: none;
 }
 
@@ -302,8 +290,7 @@ hr.wp-block-separator {
 	padding: .8em 1.5em;
 }
 
-
-/* Block: Quote -------------------------------------------- */
+/* Block: Quote ------------------------------ */
 
 blockquote {
 	margin: 0;
@@ -362,7 +349,7 @@ cite,
 .wp-block-quote.is-style-large cite, 
 .wp-block-quote.is-style-large footer {
 	color: #666;
-	font-family: 'Montserrat', sans-serif !important;
+	font-family: Montserrat, sans-serif !important;
 	font-size: 14px;
 	font-style: normal;
 	font-weight: 700;
@@ -388,8 +375,7 @@ cite:before { content: "— "; }
 	font-size: 16px;
 }
 
-
-/* Block: Pull Quote ---------------------------------------- */
+/* Block: Pull Quote ------------------------- */
 
 .wp-block-pullquote {
 	border: none;
@@ -398,29 +384,25 @@ cite:before { content: "— "; }
 	text-align: left;
 }
 
-
-/* Block: Cover Image ---------------------------------------- */
+/* Block: Cover Image ------------------------ */
 
 .editor-styles-wrapper .wp-block-cover p {
 	font-size: 2em;
-	font-weight: 300;
 }
 
-
-/* Block: Verse ------------------------------------------- */
+/* Block: Verse ------------------------------ */
 
 .wp-block-verse pre, 
 pre.wp-block-verse {
 	font-size: 0.7em;
 }
 
-
-/* Block: Button ------------------------------------------- */
+/* Block: Button ----------------------------- */
 
 .wp-block-button .wp-block-button__link,
 .wp-block-button .wp-block-button__link.mce-content-body {
 	border-radius: 4px;
-	font-family: 'Montserrat', sans-serif !important;
+	font-family: Montserrat, sans-serif !important;
 	font-size: 16px;
 	font-weight: 600;
 	line-height: 1.1;

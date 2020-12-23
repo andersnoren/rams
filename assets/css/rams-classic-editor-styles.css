@@ -56,7 +56,7 @@ body#tinymce.wp-editor h4,
 body#tinymce.wp-editor h5, 
 body#tinymce.wp-editor h6 {
 	margin: 40px 0 20px;
-	font-family: 'Montserrat', sans-serif;
+	font-family: Montserrat, sans-serif;
 	line-height: 120%;
 }
 
@@ -128,7 +128,7 @@ body#tinymce.wp-editor blockquote p:first-child { margin-top: 0; }
 body#tinymce.wp-editor blockquote p:last-child { margin-bottom: 0; }
 
 body#tinymce.wp-editor cite {
-	font-family: 'Montserrat', sans-serif;
+	font-family: Montserrat, sans-serif;
 	font-size: 0.9rem;
 	font-weight: 700;
 	line-height: 140%;
@@ -302,7 +302,7 @@ body#tinymce.wp-editor fieldset {
 }
 
 body#tinymce.wp-editor fieldset legend {
-	font-family: 'Montserrat', sans-serif;
+	font-family: Montserrat, sans-serif;
 	font-size: 0.9rem;
 	line-height: 1;
 	font-weight: 600;
@@ -315,7 +315,7 @@ body#tinymce.wp-editor fieldset legend {
 }
 
 body#tinymce.wp-editor label {
-	font-family: 'Montserrat', sans-serif;
+	font-family: Montserrat, sans-serif;
 	font-size: 0.9rem;
 	font-weight: 600;
 	text-transform: uppercase;
@@ -323,7 +323,7 @@ body#tinymce.wp-editor label {
 	color: #666;
 }
 
-body#tinymce.wp-editor input { font-family: 'Montserrat', sans-serif; }
+body#tinymce.wp-editor input { font-family: Montserrat, sans-serif; }
 
 body#tinymce.wp-editor input[type="file"] {
 	padding: 12px;
@@ -340,7 +340,7 @@ body#tinymce.wp-editor textarea {
 	box-sizing: border-box;
 	width: 100%;
 	padding: 20px;
-	font-family: 'Montserrat', sans-serif;
+	font-family: Montserrat, sans-serif;
 	font-size: 0.85em;
 	border: none;
 	color: #444;

@@ -3,25 +3,27 @@
 <div class="content">
 
 	<div class="post single">
-	
+
 		<div class="post-inner section-inner thin">
-		                
-		<div class="post-header">
-		
-			<h2 class="post-title"><?php _e( 'Error 404', 'rams' ); ?></h2>
-													
-		</div><!-- .post-header -->
-	                                                	            
-        <div class="post-content">
-        	            
-            <p><?php _e( "It seems like you have tried to open a page that doesn't exist. It could have been deleted, moved, or it never existed at all. You are welcome to search for what you are looking for with the form below.", 'rams' ); ?></p>
-            
-            <?php get_search_form(); ?>
-            
-        </div><!-- .post-content -->
-        	            	                        	
+
+			<div class="post-header">
+
+				<h1 class="post-title"><?php _e( 'Error 404', 'rams' ); ?></h1>
+
+			</div><!-- .post-header -->
+
+			<div class="post-content">
+
+				<p><?php _e( "It seems like you have tried to open a page that doesn't exist. It could have been deleted, moved, or it never existed at all. You are welcome to search for what you are looking for with the form below.", 'rams' ); ?></p>
+
+				<?php get_search_form(); ?>
+
+			</div><!-- .post-content -->
+
+		</div><!-- .post-inner -->
+
 	</div><!-- .post -->
-	
+
 </div><!-- .content -->
 
 <?php get_footer(); ?>

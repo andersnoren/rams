@@ -2,7 +2,8 @@
 Contributors: Anlino
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=anders%40andersnoren%2ese&lc=US&item_name=Free%20WordPress%20Themes%20from%20Anders%20Noren&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted
 Requires at least: 4.4
-Tested up to: 5.0
+Requires PHP: 5.6
+Tested up to: 5.5
 Stable tag: trunk
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -62,6 +63,40 @@ Source: http://www.unsplash.com
 
 
 == Changelog ==
+
+Version 2.0.0 (2020-12-23)
+-------------------------
+- Added "Requires PHP" and "Tested up to" to style.css and readme.txt.
+- Added theme tags: block-styles, wide-blocks.
+- Deleted the languages folder and license.txt.
+- Updated Flexslider to 2.7.0, added non-minified version.
+- Added theme version number to enqueues of theme files.
+- Moved CSS, JS and images to the new assets folder.
+- Replaced the `post-image` image size by setting the post-thumbnail size to the same dimensions.
+- CSS cleanup.
+- Updated the CSS reset to allow for more inherits.
+- Cleaned up index.php, moved modification to the archive title and description to functions.php.
+- Modified element structure of the archive header for better SEO.
+- Fixed display of search when there aren't any results.
+- Moved the Customizer class to a separate file, made it pluggable, and improved its structure and code.
+- Restructured the sidebar to use flex instead of absolute positioning for child elements.
+- Google Fonts: Removed the 500 font weight, since it wasn't being used.
+- Removed searchform.php and styled the Core search form instead.
+- Set links to be underlined by default.
+- Updated the Post Content styles to have global targeting, and updated other styles to account for the new base styles.
+- Improved color contrast.
+- Updated conditional for outputting comments container.
+- Added block editor color palette classes to the block editor styles, updated targeting.
+- Removed <head> parameters disabling user scalability.
+- Removed the title attribute from all links.
+- Removed the "Comments are closed" message from the comments section.
+- Output the excerpt on the page for search results, instead of the full content.
+- Fixed the site header title element always being an h1.
+- Removed conditional for outputting a blog logo in the header, since Rams doesn't support logos.
+- Flexed the site header on mobile.
+- More clear separation between posts on mobile.
+- Updated resolution of screenshot to 1200x900 and file format to JPG, reducing file size.
+- Block Editor style improvements.
 
 Version 1.25 (2019-04-07)
 -------------------------
