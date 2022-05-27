@@ -2,16 +2,16 @@
 
 	Theme Name: Rams
     Text Domain: rams
-	Theme URI: https://www.andersnoren.se/teman/rams-wordpress-theme/
-	Version: 2.0.0
-	Description: A clean, minimalist and responsive theme for bloggers. It features a responsive design, support for the gallery and quote post formats, Block Editor support, custom accent color support, Jetpack infinite scroll integration, and editor styles. Demo: https://www.andersnoren.se/themes/rams/
+	Theme URI: https://andersnoren.se/teman/rams-wordpress-theme/
+	Version: 2.0.1
+	Description: A clean, minimalist and responsive theme for bloggers. It features a responsive design, support for the gallery and quote post formats, Block Editor support, custom accent color support, Jetpack infinite scroll integration, and editor styles. Demo: https://andersnoren.se/themes/rams/
 	Tags: blog, two-columns, left-sidebar, custom-colors, custom-menu, editor-style, featured-images, post-formats, sticky-post, theme-options, threaded-comments, translation-ready, block-styles, wide-blocks
 	Author: Anders Norén
 	Author URI: https://www.andersnoren.se
 	License: GNU General Public License version 2.0
 	License URI: http://www.gnu.org/licenses/gpl-2.0.html
 	Requires PHP: 5.6
-	Tested up to: 5.6
+	Tested up to: 6.0
 
 	All files, unless otherwise stated, are released under the GNU General Public License
 	version 2.0 (http://www.gnu.org/licenses/gpl-2.0.html)
@@ -934,9 +934,10 @@ input[type="submit"]:focus {
 }
 
 .post-quote {
-	display: block;
 	background: #444;
 	color: #fff;
+	display: block;
+	text-decoration: none;
 }
 
 .post-quote blockquote,
@@ -944,6 +945,14 @@ input[type="submit"]:focus {
 	font-size: 1.5rem;
 	font-weight: 700;
 	line-height: 150%;
+}
+
+.post-quote blockquote {
+	background-color: transparent;
+}
+
+.post-quote blockquote:before {
+	color: inherit;
 }
 
 .post-quote cite {

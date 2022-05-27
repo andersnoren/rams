@@ -81,7 +81,7 @@
 
 				<div class="sidebar-bottom">
 
-				 	<p class="credits"><?php _e( 'Theme by', 'rams' ); ?> <a href="https://www.andersnoren.se">Anders Nor&eacute;n</a></p>
+				 	<p class="credits"><?php _e( 'Theme by', 'rams' ); ?> <a href="https://andersnoren.se">Anders Nor&eacute;n</a></p>
 
 				 </div><!-- .sidebar-bottom -->
 
