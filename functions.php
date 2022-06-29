@@ -79,15 +79,8 @@ if ( ! function_exists( 'rams_load_style' ) ) {
 		$dependencies = array();
 		$theme_version = wp_get_theme( 'rams' )->get( 'Version' );
 
-		/**
-		 * Translators: If there are characters in your language that are not
-		 * supported by the theme fonts, translate this to 'off'. Do not translate
-		 * into your own language.
-		 */
-		if ( 'off' !== _x( 'on', 'Google Fonts: on or off', 'rams' ) ) {
-			wp_register_style( 'rams_googleFonts', '//fonts.googleapis.com/css?family=Montserrat:400,600,700|Crimson+Text:400,700,400italic,700italic', false, 1.0, 'all' );
-			$dependencies[] = 'rams_googleFonts';
-		}
+		wp_register_style( 'rams_googleFonts', get_stylesheet_directory_uri() . '/assets/css/fonts.css' );
+		$dependencies[] = 'rams_googleFonts';
 
 		wp_enqueue_style( 'rams_style', get_stylesheet_uri(), $dependencies, $theme_version );
 
@@ -107,21 +100,7 @@ if ( ! function_exists( 'rams_load_style' ) ) {
 if ( ! function_exists( 'rams_add_editor_styles' ) ) {
 	function rams_add_editor_styles() {
 
-		add_editor_style( 'assets/css/rams-classic-editor-styles.css' );
-
-		/**
-		 * Translators: If there are characters in your language that are not
-		 * supported by the theme fonts, translate this to 'off'. Do not translate
-		 * into your own language.
-		 */
-		$google_fonts = _x( 'on', 'Google Fonts: on or off', 'rams' );
-
-		if ( 'off' !== $google_fonts ) {
-
-			$font_url = '//fonts.googleapis.com/css?family=Montserrat:400,600,700|Crimson+Text:400,700,400italic,700italic';
-			add_editor_style( str_replace( ',', '%2C', $font_url ) );
-
-		}
+		add_editor_style( array( 'assets/css/rams-classic-editor-styles.css', 'assets/css/fonts.css' ) );
 
 	}
 	add_action( 'init', 'rams_add_editor_styles' );
@@ -516,21 +495,10 @@ endif;
 if ( ! function_exists( 'rams_block_editor_styles' ) ) :
 	function rams_block_editor_styles() {
 
-		$dependencies = array();
 		$theme_version = wp_get_theme( 'rams' )->get( 'Version' );
 
-		/**
-		 * Translators: If there are characters in your language that are not
-		 * supported by the theme fonts, translate this to 'off'. Do not translate
-		 * into your own language.
-		 */
-		if ( 'off' !== _x( 'on', 'Google Fonts: on or off', 'rams' ) ) {
-			wp_register_style( 'rams-block-editor-styles-font', '//fonts.googleapis.com/css?family=Montserrat:400,600,700|Crimson+Text:400,700,400italic,700italic', false, 1.0, 'all' );
-			$dependencies[] = 'rams-block-editor-styles-font';
-		}
-
-		// Enqueue the block editor styles
-		wp_enqueue_style( 'rams-block-editor-styles', get_theme_file_uri( '/assets/css/rams-block-editor-styles.css' ), $dependencies, $theme_version, 'all' );
+		wp_register_style( 'rams-block-editor-styles-font', get_stylesheet_directory_uri() . '/assets/css/fonts.css' );
+		wp_enqueue_style( 'rams-block-editor-styles', get_theme_file_uri( '/assets/css/rams-block-editor-styles.css' ), array( 'rams-block-editor-styles-font' ), $theme_version, 'all' );
 
 	}
 	add_action( 'enqueue_block_editor_assets', 'rams_block_editor_styles', 1 );

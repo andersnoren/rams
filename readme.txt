@@ -64,6 +64,11 @@ Source: http://www.unsplash.com
 
 == Changelog ==
 
+Version 2.1 (2022-06-29)
+-------------------------
+- Switched from the Google Fonts CDN to font files included in the theme folder.
+- Removed the www prefix from andersnoren.se URLs.
+
 Version 2.0.1 (2022-05-27)
 -------------------------
 - Quote post format: Fixed styles on archive pages.
