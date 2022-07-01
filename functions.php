@@ -79,7 +79,7 @@ if ( ! function_exists( 'rams_load_style' ) ) {
 		$dependencies = array();
 		$theme_version = wp_get_theme( 'rams' )->get( 'Version' );
 
-		wp_register_style( 'rams_googleFonts', get_stylesheet_directory_uri() . '/assets/css/fonts.css' );
+		wp_register_style( 'rams_googleFonts', get_theme_file_uri( '/assets/css/fonts.css' ) );
 		$dependencies[] = 'rams_googleFonts';
 
 		wp_enqueue_style( 'rams_style', get_stylesheet_uri(), $dependencies, $theme_version );
@@ -497,7 +497,7 @@ if ( ! function_exists( 'rams_block_editor_styles' ) ) :
 
 		$theme_version = wp_get_theme( 'rams' )->get( 'Version' );
 
-		wp_register_style( 'rams-block-editor-styles-font', get_stylesheet_directory_uri() . '/assets/css/fonts.css' );
+		wp_register_style( 'rams-block-editor-styles-font', get_theme_file_uri( '/assets/css/fonts.css' ) );
 		wp_enqueue_style( 'rams-block-editor-styles', get_theme_file_uri( '/assets/css/rams-block-editor-styles.css' ), array( 'rams-block-editor-styles-font' ), $theme_version, 'all' );
 
 	}
