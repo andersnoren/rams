@@ -2,7 +2,7 @@
 
 A clean, minimalist and responsive theme for bloggers. It features a responsive design, support for the gallery and quote post formats, Block Editor support, custom accent color support, Jetpack infinite scroll integration, and editor styles.
 
-![Rams](https://github.com/andersnoren/rams/blob/main/screenshot.png)
+![Rams](https://github.com/andersnoren/rams/blob/master/screenshot.jpg)
 
 You can download the latest stable release of Rams [from WordPress.org](https://wordpress.org/themes/rams/).
 
